@@ -4,9 +4,8 @@ A simple web map application for examining Jukola 2025 old maps.
 
 ## Todo
 
-- Update overview pdf
-- Update event logos
-- Update elevation tiles
+- Implement layer selector
+- Add tent layer
 
 ## Getting Started with Create React App
 
