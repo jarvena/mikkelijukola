@@ -38,6 +38,10 @@ export default function Map(){
                     type: 'geojson',
                     data: './data/kieltoalue.geojson'
                 },
+                tentSource: {
+                    type: 'geojson',
+                    data: './data/tents.geojson',
+                },
                 terrainSource: {
                   type: 'raster-dem',
                   url: './data/elevation/tileset.json',
@@ -67,6 +71,39 @@ export default function Map(){
                     source: 'hillshadeSource',
                     paint: { 'raster-opacity': 0.6 },
                     layout: { 'visibility': 'none' }
+                },
+                {
+                  id: 'tentFill',
+                  type: 'fill',
+                  source: 'tentSource',
+                  layout: {
+                    'visibility': 'visible',
+                  },
+                  paint: {
+                    'fill-color': '#DADADA',
+                  },
+                },
+                {
+                  id: 'tentBorder',
+                  type: 'line',
+                  source: 'tentSource',
+                  layout: {
+                    'visibility': 'visible',
+                  },
+                  paint: {
+                    'line-color': '#000000',
+                    'line-width': [
+                      'interpolate', 
+                      // ['linear'], 
+                      // ['zoom'], 
+                      // 10, 1, 
+                      // 24, 2
+                      ['exponential', 2], 
+                      ['zoom'],
+                      12, ["*", .75, ["^", 2, -2]], 
+                      24, ["*", .75, ["^", 2, 8]]
+                    ]
+                  },
                 },
                 {
                     id: 'forbiddenArea',
