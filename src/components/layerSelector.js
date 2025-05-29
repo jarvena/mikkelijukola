@@ -87,7 +87,7 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
         }}
         PaperProps={{
           sx: {
-            backgroundColor: '#111', // or 'black'
+            backgroundColor: '#111',
             color: 'white',
           }
         }}
@@ -129,7 +129,7 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
             <FontAwesomeIcon icon={faXmark} color='white'/>
           </Box>
         </Box>
-        <Box display="flex" flexWrap="wrap" alignItems="center">
+        <Box display="flex" flexWrap="wrap" alignItems="flex-start">
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <FormLabel sx={{ color: 'white' }} id="bgmap-radio-buttons-group-label">Taustakartta</FormLabel>
             <RadioGroup
@@ -145,6 +145,7 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
           <FormGroup sx={{ m: 1, minWidth: 120 }}>
             <FormLabel id="overlay-checkbox-group-label" sx={{color: 'white'}}>Aineistot</FormLabel>
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['oldMaps'])} sx={{ color: 'white' }}/>} label="Vanhat kartat" />
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['arena'])} sx={{ color: 'white' }}/>} label="Kisakeskus" />
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['tentFill', 'tentBorder'])} sx={{ color: 'white' }}/>} label="Teltat" />
           </FormGroup>
         </Box>

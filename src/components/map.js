@@ -39,6 +39,15 @@ export default function Map({bgMap, overlayVisibility}) {
                     minzoom: 10,
                     bounds: [27+8/60+2.79/3600, 61+37/60+12.37/3600, 27+10/60+45.88/3600, 61+38/60+54.27/3600], //left, bottom, right, top
                 },
+                arenaTiles: {
+                    type: 'raster',
+                    tiles: ['./data/kisakeskus/{z}/{x}/{y}.png'],
+                    tileSize: 256,
+                    attribution: 'Jukola 2025',
+                    maxzoom: 20,
+                    minzoom: 14,
+                    bounds: [27.1469199103726879, 61.6373892963511452, 27.1555165538415046, 61.6441650587566485]
+                },
                 forbiddenAreaPolygon: {
                     type: 'geojson',
                     data: './data/kieltoalue.geojson'
@@ -78,6 +87,11 @@ export default function Map({bgMap, overlayVisibility}) {
                     id: 'oldMaps',
                     type: 'raster',
                     source: 'oldMapTiles',
+                },
+                {
+                  id: 'arena',
+                  type: 'raster',
+                  source: 'arenaTiles',
                 },
                 {
                     id: 'hillshade',
