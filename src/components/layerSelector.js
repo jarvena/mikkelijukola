@@ -139,7 +139,7 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
               name="radio-buttons-group"
             >
               <FormControlLabel value="MapAnt" control={<Radio sx={{ color: 'white' }} />} label="MapAnt" />
-              <FormControlLabel value="gSat" control={<Radio sx={{ color: 'white' }}/>} label="Ilmakuva" />
+              <FormControlLabel value="gSat" control={<Radio sx={{ color: 'white' }}/>} label="Satellittikuva" />
             </RadioGroup>
           </FormControl>
           <FormGroup sx={{ m: 1, minWidth: 120 }}>
