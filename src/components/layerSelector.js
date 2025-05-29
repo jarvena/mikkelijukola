@@ -11,25 +11,27 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLayerGroup, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
   backgroundColor: 'red'
 }));
 
-const Puller = styled('div')(({ theme }) => ({
-  width: 30,
-  height: 6,
-  backgroundColor: 'blue',
-  borderRadius: 3,
-  position: 'absolute',
-  top: 8,
-  visibility: 'visible',
-  left: 'calc(50% - 15px)',
-}));
+const setOverlayVisibility = (event, overlayVisibilityState, layersToSet) => {
+  const { overlayVisibility, setOverlayVisibility } = overlayVisibilityState;
+  const newVisibility = layersToSet.reduce((acc, layer) => {
+    acc[layer] = event.target.checked ? 'visible' : 'none';
+    return acc;
+  }
+  , {...overlayVisibility});
+  setOverlayVisibility(newVisibility);
+};
 
-export default function LayerSelector() {
-  const [open, setOpen] = useState(true);
+export default function LayerSelector({bgState, overlayVisibilityState}) {
+  const { bgMap, setBgMap } = bgState;
+  const [open, setOpen] = useState(false);
   const toggleDrawer = (newStatus = !open) => {
     setOpen(newStatus);
   };
@@ -43,6 +45,37 @@ export default function LayerSelector() {
           },
         }}
       />
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 29,
+          right: 9,
+          backgroundColor: 'white',
+          borderRadius: '4px',
+          boxShadow: 2,
+          p: 0,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 29,
+          height: 29,
+          border: '1px solid #ccc',
+          transition: 'box-shadow 0.2s, opacity 0.2s',
+          opacity: open ? 0 : 1,
+          pointerEvents: open ? 'none' : 'auto',
+          '&:hover': {
+            boxShadow: 4,
+            backgroundColor: '#f8f8f8',
+          },
+          zIndex: 1301,
+        }}
+        onClick={() => toggleDrawer(true)}
+        aria-label="Layer selector"
+      >
+        <FontAwesomeIcon icon={faLayerGroup} color="#333" />
+      </Box>
+
       <SwipeableDrawer
         anchor='bottom'
         open={open}
@@ -52,26 +85,67 @@ export default function LayerSelector() {
         ModalProps={{
           keepMounted: true,
         }}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#111', // or 'black'
+            color: 'white',
+          }
+        }}
       >
-        <Puller onClick={() => toggleDrawer(false)}/>
+        <Box sx={{ 
+          width: `calc(100vw - 10px)`, 
+          margin: '5px', 
+          textAlign: 'center', 
+          backgroundColor: '#333', 
+          color: 'white', 
+          borderRadius: '4px', 
+          padding: '5px 0',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          userSelect: 'none',
+        }}>
+          <b style={{ flex: 1 }}>Karttatasot</b>
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              cursor: 'pointer',
+              color: 'white',
+              fontSize: 22,
+              lineHeight: 1,
+              padding: '0 4px',
+              borderRadius: '50%',
+              '&:hover': {
+                backgroundColor: '#444',
+              },
+            }}
+            onClick={() => toggleDrawer(false)}
+            aria-label="Sulje"
+          >
+            <FontAwesomeIcon icon={faXmark} color='white'/>
+          </Box>
+        </Box>
         <Box display="flex" flexWrap="wrap" alignItems="center">
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <FormLabel id="bgmap-radio-buttons-group-label">Taustakartta</FormLabel>
+            <FormLabel sx={{ color: 'white' }} id="bgmap-radio-buttons-group-label">Taustakartta</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="MapAnt"
+              value={bgMap}
+              onChange={(e) => setBgMap(e.target.value)}
               name="radio-buttons-group"
             >
-              <FormControlLabel value="MapAnt" control={<Radio />} label="MapAnt" />
-              <FormControlLabel value="aerial" control={<Radio />} label="Ilmakuva" />
-              <FormControlLabel value="topo" control={<Radio />} label="Maastokartta" />
+              <FormControlLabel value="MapAnt" control={<Radio sx={{ color: 'white' }} />} label="MapAnt" />
+              <FormControlLabel value="gSat" control={<Radio sx={{ color: 'white' }}/>} label="Ilmakuva" />
             </RadioGroup>
           </FormControl>
           <FormGroup sx={{ m: 1, minWidth: 120 }}>
-            <FormLabel id="overlay-checkbox-group-label">Aineistot</FormLabel>
-            <FormControlLabel control={<Checkbox />} label="Harjoituskieltoalue" />
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Vanhat kartat" />
-            <FormControlLabel control={<Checkbox />} label="Disabled" />
+            <FormLabel id="overlay-checkbox-group-label" sx={{color: 'white'}}>Aineistot</FormLabel>
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['oldMaps'])} sx={{ color: 'white' }}/>} label="Vanhat kartat" />
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['tentFill', 'tentBorder'])} sx={{ color: 'white' }}/>} label="Teltat" />
           </FormGroup>
         </Box>
       </SwipeableDrawer>

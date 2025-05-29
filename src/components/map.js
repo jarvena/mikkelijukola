@@ -5,7 +5,7 @@ import './map.css';
 
 import MeasureControl from '../buttons/measureControl';
 
-export default function Map(){
+export default function Map({bgMap, overlayVisibility}) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng] = useState(27.14983);
@@ -24,6 +24,11 @@ export default function Map(){
                     tiles: ['https://wmts.mapant.fi/wmts_EPSG3857.php?z={z}&y={y}&x={x}'],
                     tileSize: 256,
                     attribution: 'MapAnt',
+                },
+                gSatTiles: {
+                  type: 'raster',
+                  tiles: ['http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'],
+                  tileSize: 256,
                 },
                 oldMapTiles: {
                     type: 'raster',
@@ -59,6 +64,15 @@ export default function Map(){
                     type: 'raster',
                     source: 'mapantTiles',
                     maxzoom: 20,
+                },
+                {
+                  id: 'gSat',
+                  type: 'raster',
+                  source: 'gSatTiles',
+                  maxzoom: 20,
+                  layout: {
+                    'visibility': 'none' // Default visibility is none
+                  }
                 },
                 {
                     id: 'oldMaps',
@@ -147,6 +161,14 @@ export default function Map(){
         }
       });
     });
+
+    if (map.current) {
+      map.current.setLayoutProperty('mapant', 'visibility', bgMap === 'MapAnt' ? 'visible' : 'none');
+      map.current.setLayoutProperty('gSat', 'visibility', bgMap === 'gSat' ? 'visible' : 'none');
+      Object.entries(overlayVisibility).forEach(([overlay, state]) => {
+        map.current.setLayoutProperty(overlay, 'visibility', state);
+      });
+    }
   
     return (
       <div className="map-wrap">
