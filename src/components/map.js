@@ -30,7 +30,7 @@ export default function Map({bgMap, overlayVisibility}) {
                   tiles: ['https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'],
                   tileSize: 256,
                 },
-                oldMapTiles: {
+                toivolaTiles: {
                     type: 'raster',
                     tiles: ['./tiles/{z}/{x}/{y}.png'],
                     tileSize: 256,
@@ -39,14 +39,22 @@ export default function Map({bgMap, overlayVisibility}) {
                     minzoom: 10,
                     bounds: [27+8/60+2.79/3600, 61+37/60+12.37/3600, 27+10/60+45.88/3600, 61+38/60+54.27/3600], //left, bottom, right, top
                 },
+                oulankiTiles: {
+                    type: 'raster',
+                    tiles: ['./data/oulanki/{z}/{x}/{y}.png'],
+                    tileSize: 256,
+                    attribution: 'Jukola 2025',
+                    maxzoom: 16,
+                    minzoom: 10,
+                },
                 arenaTiles: {
                     type: 'raster',
                     tiles: ['./data/kisakeskus/{z}/{x}/{y}.png'],
                     tileSize: 256,
                     attribution: 'Jukola 2025',
-                    maxzoom: 20,
+                    maxzoom: 19,
                     minzoom: 14,
-                    bounds: [27.1469199103726879, 61.6373892963511452, 27.1555165538415046, 61.6441650587566485]
+                    bounds: [27.1453839856409793, 61.6373979881179324, 27.1558997475888866, 61.6446067998338947]
                 },
                 forbiddenAreaPolygon: {
                     type: 'geojson',
@@ -78,15 +86,21 @@ export default function Map({bgMap, overlayVisibility}) {
                   id: 'gSat',
                   type: 'raster',
                   source: 'gSatTiles',
-                  maxzoom: 20,
+                  minzoom: 14,
+                  maxzoom: 19,
                   layout: {
                     'visibility': 'none' // Default visibility is none
                   }
                 },
                 {
-                    id: 'oldMaps',
+                  id: 'oulanki',
+                  type: 'raster',
+                  source: 'oulankiTiles',
+                },
+                {
+                    id: 'toivola',
                     type: 'raster',
-                    source: 'oldMapTiles',
+                    source: 'toivolaTiles',
                 },
                 {
                   id: 'arena',

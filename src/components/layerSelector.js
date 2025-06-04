@@ -144,7 +144,8 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
           </FormControl>
           <FormGroup sx={{ m: 1, minWidth: 120 }}>
             <FormLabel id="overlay-checkbox-group-label" sx={{color: 'white'}}>Aineistot</FormLabel>
-            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['oldMaps'])} sx={{ color: 'white' }}/>} label="Vanhat kartat" />
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['toivola'])} sx={{ color: 'white' }}/>} label="Toivola" />
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['oulanki'])} sx={{ color: 'white' }}/>} label="Oulanki" />
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['arena'])} sx={{ color: 'white' }}/>} label="Kisakeskus" />
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['tentFill', 'tentBorder'])} sx={{ color: 'white' }}/>} label="Teltat" />
           </FormGroup>
