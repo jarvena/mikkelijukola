@@ -46,6 +46,7 @@ export default function Map({bgMap, overlayVisibility}) {
                     attribution: 'Jukola 2025',
                     maxzoom: 16,
                     minzoom: 10,
+                    bounds: [27.0962589076127998,61.5920828865998331, 27.1475246240962527,61.6307631235341518],
                 },
                 arenaTiles: {
                     type: 'raster',
@@ -63,6 +64,11 @@ export default function Map({bgMap, overlayVisibility}) {
                 tentSource: {
                     type: 'geojson',
                     data: './data/tents.geojson',
+                },
+                forestSource: {
+                  type: 'geojson',
+                  data: './data/metsailmoitukset.geojson',
+                  attribution: 'Metsäkeskus'
                 },
                 terrainSource: {
                   type: 'raster-dem',
@@ -123,6 +129,18 @@ export default function Map({bgMap, overlayVisibility}) {
                   },
                   paint: {
                     'fill-color': '#DADADA',
+                  },
+                },
+                {
+                  id: 'forestFill',
+                  type: 'fill',
+                  source: 'forestSource',
+                  layout: {
+                    'visibility': 'visible',
+                  },
+                  paint: {
+                    'fill-color': '#f8c062',
+                    'fill-opacity': 0.5,
                   },
                 },
                 {

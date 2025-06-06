@@ -148,6 +148,7 @@ export default function LayerSelector({bgState, overlayVisibilityState}) {
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['oulanki'])} sx={{ color: 'white' }}/>} label="Oulanki" />
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['arena'])} sx={{ color: 'white' }}/>} label="Kisakeskus" />
             <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['tentFill', 'tentBorder'])} sx={{ color: 'white' }}/>} label="Teltat" />
+            <FormControlLabel control={<Checkbox defaultChecked onChange={(e) => setOverlayVisibility(e, overlayVisibilityState, ['forestFill'])} sx={{ color: 'white' }}/>} label="Metsänkäyttöilmoitukset 2022 jälkeen" />
           </FormGroup>
         </Box>
       </SwipeableDrawer>
