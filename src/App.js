@@ -3,6 +3,7 @@ import Navbar from './components/navbar.js';
 import Map from './components/map.js';
 import LayerSelector from './components/layerSelector.js';
 import { useState } from 'react';
+import './localization/i18n.js'
 
 import './App.css';
 

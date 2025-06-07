@@ -87,7 +87,11 @@ class MeasureControl {
             layers: ['measure-points']
         })
 
-        if (this._geojson.features.length > 1) this._geojson.features.pop()
+        if (this._geojson.features.length > 1) {
+            this._geojson.features.pop()
+            const distanceContainer = document.getElementById('distance')
+            distanceContainer.innerHTML = ''
+        }
         if (features.length) {
             const id = features[0].properties.id
             this._geojson.features = this._geojson.features.filter((point) => {
@@ -114,13 +118,12 @@ class MeasureControl {
                 }
             )
             this._geojson.features.push(this._linestring)
-
-            this._map.getSource('measureGeojson').setData(this._geojson)
             
             const distanceContainer = document.getElementById('distance')
             distanceContainer.innerHTML = ''
             distanceContainer.innerHTML = `<pre>${length(this._linestring, {units: 'kilometers'}).toFixed(2)} km</pre>`
         }
+        this._map.getSource('measureGeojson').setData(this._geojson)
     }
 
     _measureMoveHandler = (e) => {

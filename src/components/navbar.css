@@ -1,6 +1,7 @@
 .heading {
   display: flex;
-  justify-content: center;
+  
+  justify-content: right;
   align-items: center;
   margin: 0px;
   padding: 0px;
@@ -12,15 +13,28 @@
 .heading > h1 {
   padding: 20px;
   margin: 0;
-  margin-left: auto;
+  flex-grow: 1;
+  /* margin-left: auto; */
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
 }
 
 .download-button {
-  padding-right: 20px;
+  padding-right: 5px;
   margin-left: auto;
   font-size: x-large;
 }
 
 .download-button a {
   color: white;
+}
+
+.language-button {
+  padding-right: 20px;
 }
