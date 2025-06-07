@@ -3,7 +3,12 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './map.css';
 
+import { Protocol } from 'pmtiles';
+
 import MeasureControl from '../buttons/measureControl';
+
+let protocol = new Protocol()
+maplibregl.addProtocol("pmtiles",protocol.tile);
 
 export default function Map({bgMap, overlayVisibility}) {
     const mapContainer = useRef(null);
@@ -50,11 +55,11 @@ export default function Map({bgMap, overlayVisibility}) {
                 },
                 arenaTiles: {
                     type: 'raster',
-                    tiles: ['./data/kisakeskus/{z}/{x}/{y}.png'],
+                    tiles: ['./data/kisakeskus/{z}/{x}/{y}.png'], //url: "pmtiles://http://localhost:3000/data/kisakeskus.pmtiles", //switch to pmtiles in future?
                     tileSize: 256,
                     attribution: 'Jukola 2025',
                     maxzoom: 19,
-                    minzoom: 14,
+                    minzoom: 10,
                     bounds: [27.1453839856409793, 61.6373979881179324, 27.1558997475888866, 61.6446067998338947]
                 },
                 forbiddenAreaPolygon: {
@@ -92,10 +97,8 @@ export default function Map({bgMap, overlayVisibility}) {
                   id: 'gSat',
                   type: 'raster',
                   source: 'gSatTiles',
-                  minzoom: 14,
-                  maxzoom: 19,
                   layout: {
-                    'visibility': 'none' // Default visibility is none
+                    'visibility': 'none' // Hidden by default
                   }
                 },
                 {
